@@ -7,7 +7,8 @@ namespace Bank
 {
    static class Bank
     {
-        private static List<Account> AllAccounts = new List<Account>();
+        // private static List<Account> AllAccounts = new List<Account>();
+        private static BankModel db = new BankModel();
         public static Account CreateAccount(String emailAddress,TypeOfAccount accountType, decimal amount)
         {
             var account = new Account
@@ -19,34 +20,40 @@ namespace Bank
             {
                 account.Deposit(amount);
             }
-            AllAccounts.Add(account);
+            // AllAccounts.Add(account);
+            db.Accounts.Add(account);
+            db.SaveChanges();
+
             return account;
 
         }
 
        public static IEnumerable<Account> GetAllAccounts()
         {
-            return AllAccounts;
+            // return AllAccounts;
+          return  db.Accounts;
         }
 
         public static void Deposit(int accountnumber,decimal amount)
         {
-           var account= AllAccounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
+           var account= db.Accounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
             if (account == null)
             {
                 return;
             }
             account.Deposit(amount);
+            db.SaveChanges();
         }
 
         public static void Withdrawl(int accountnumber, decimal amount)
         {
-            var account = AllAccounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
+            var account = db.Accounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
             if (account == null)
             {
                 return;
             }
             account.Withdrawl(amount);
+            db.SaveChanges();
         }
     }
 }

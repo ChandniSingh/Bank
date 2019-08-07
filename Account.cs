@@ -16,11 +16,11 @@ namespace Bank
       
 
         
-        static int lastAccountNumber = 1;
+       // static int lastAccountNumber = 1;
        
         public Account()
         {
-            AccountNumber = lastAccountNumber++;
+          //  AccountNumber = lastAccountNumber++;
 
             CreatedDate = DateTime.Now;
             
@@ -30,7 +30,7 @@ namespace Bank
         /// <summary>
         /// Defines features of account
         /// </summary>
-        public int AccountNumber { get;  }
+        public int AccountNumber { get; set; }
         public TypeOfAccount AccountType { get; set; }
         public decimal Balance { get; set; }
         public string EmailAddress { get; set; }
