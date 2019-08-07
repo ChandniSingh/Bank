@@ -9,7 +9,7 @@ namespace Bank
     {
         // private static List<Account> AllAccounts = new List<Account>();
         private static BankModel db = new BankModel();
-        public static Account CreateAccount(String emailAddress,TypeOfAccount accountType, decimal amount)
+        public static Account CreateAccount(String emailAddress,TypeOfAccount accountType, decimal amount=0)
         {
             var account = new Account
             {
@@ -65,7 +65,7 @@ namespace Bank
 
 
 
-            public static void Withdrawl(int accountnumber, decimal amount)
+        public static void Withdrawl(int accountnumber, decimal amount)
         {
             var account = db.Accounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
             if (account == null)
@@ -80,12 +80,19 @@ namespace Bank
                 TypeOfTransaction = TransactionType.Debit,
                 Description = "Bank Withdrawl",
                 Amount = amount,
-                AccountNumber=accountnumber
-                
+                AccountNumber = accountnumber
+
 
             };
             db.Transactions.Add(transaction);
             db.SaveChanges();
         }
+
+
+        public static Account GetAccountDetails(int accountNumber)
+        {
+            return db.Accounts
+                  .SingleOrDefault(m => m.AccountNumber == accountNumber);
+         }
     }
 }
