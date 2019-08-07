@@ -42,10 +42,30 @@ namespace Bank
                 return;
             }
             account.Deposit(amount);
+
+            var transaction = new Transaction
+            {
+                TransactionDate = DateTime.Now,
+                TypeOfTransaction = TransactionType.Credit,
+                Description = "Bank Deposit",
+                Amount = amount,
+                AccountNumber=accountnumber
+
+            };
+            db.Transactions.Add(transaction);
+
             db.SaveChanges();
         }
+        public static IEnumerable<Transaction> GetAllTransactions(int accountnumber)
+        {
+            return db.Transactions.Where(t=>t.AccountNumber==accountnumber).OrderByDescending(t=>t.TransactionDate);
+            
 
-        public static void Withdrawl(int accountnumber, decimal amount)
+        }
+
+
+
+            public static void Withdrawl(int accountnumber, decimal amount)
         {
             var account = db.Accounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
             if (account == null)
@@ -53,6 +73,18 @@ namespace Bank
                 return;
             }
             account.Withdrawl(amount);
+
+            var transaction = new Transaction
+            {
+                TransactionDate = DateTime.Now,
+                TypeOfTransaction = TransactionType.Debit,
+                Description = "Bank Withdrawl",
+                Amount = amount,
+                AccountNumber=accountnumber
+                
+
+            };
+            db.Transactions.Add(transaction);
             db.SaveChanges();
         }
     }

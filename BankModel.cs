@@ -9,11 +9,13 @@ namespace Bank
 
     {
         public DbSet<Account> Accounts { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Bank;Integrated Security=True;Connect Timeout=30");
 
-           
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +30,22 @@ namespace Bank
                 .HasMaxLength(50);
 
             });
+
+
+
+            {
+                modelBuilder.Entity<Transaction>(entity =>
+                {
+                    entity.HasKey(e => e.TransactionId)
+                    .HasName("PK_Transaction");
+                    entity.Property(e => e.TransactionId)
+                    .ValueGeneratedOnAdd();
+
+
+                });
+            }
         }
     }
 }
+
+

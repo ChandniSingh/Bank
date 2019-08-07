@@ -35,7 +35,9 @@ namespace Bank
         public decimal Balance { get; set; }
         public string EmailAddress { get; set; }
         public DateTime CreatedDate { get; set; }
-        
+
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
         public decimal Deposit(decimal amount)
         {
             Balance = Balance + amount;

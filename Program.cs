@@ -17,6 +17,7 @@ namespace Bank
             Console.WriteLine("3. Deposit money");
             Console.WriteLine("4. Withdrawl");
             Console.WriteLine("5. Print all accounts");
+                Console.WriteLine("6. Print all Transactions");
 
             var option = Console.ReadLine();
                 switch (option)
@@ -76,12 +77,29 @@ namespace Bank
 
                     case "5":
                         Console.WriteLine("Printing all the accounts");
-                        var accounts = Bank.GetAllAccounts();
-                        foreach (var item in accounts)
+                        PrintAllAccounts();
+
+
+                        break;
+
+                    case "6":
+                        
+                        PrintAllAccounts();
+                        Console.WriteLine("Enter Account Number: ");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Printing all the Transactions");
+                       var t= Bank.GetAllTransactions(accountNum);
+
+                        foreach (var item in t)
                         {
-                            Console.WriteLine(item.EmailAddress);
-                            Console.WriteLine($"{item.AccountNumber}, {item.EmailAddress} , {item.AccountType} , {item.Balance:C} , {item.CreatedDate}");
+
+                            Console.WriteLine($"{item.TransactionId}, {item.TypeOfTransaction} , {item.TransactionDate},{item.Amount}");
+
+
                         }
+
+
 
 
                         break;
@@ -89,6 +107,18 @@ namespace Bank
                     default:
                         break;
                 }
+            }
+        }
+
+        private static void PrintAllAccounts()
+        {
+            var accounts1 = Bank.GetAllAccounts();
+            foreach (var item in accounts1)
+            {
+                
+                Console.WriteLine($"{item.AccountNumber}, {item.EmailAddress} , {item.AccountType} , {item.Balance:C} ," +
+                    $" {item.CreatedDate}");
+
             }
         }
     }

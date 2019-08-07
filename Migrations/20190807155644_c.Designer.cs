@@ -4,14 +4,16 @@ using Bank;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bank.Migrations
 {
     [DbContext(typeof(BankModel))]
-    partial class BankModelModelSnapshot : ModelSnapshot
+    [Migration("20190807155644_c")]
+    partial class c
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,6 @@ namespace Bank.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountNumber");
-
                     b.Property<decimal>("Amount");
 
                     b.Property<string>("Description");
@@ -60,17 +60,7 @@ namespace Bank.Migrations
                     b.HasKey("TransactionId")
                         .HasName("PK_Transaction");
 
-                    b.HasIndex("AccountNumber");
-
                     b.ToTable("Transactions");
-                });
-
-            modelBuilder.Entity("Bank.Transaction", b =>
-                {
-                    b.HasOne("Bank.Account", "Account")
-                        .WithMany("Transactions")
-                        .HasForeignKey("AccountNumber")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
