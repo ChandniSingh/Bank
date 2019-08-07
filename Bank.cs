@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Bank
@@ -13,9 +14,6 @@ namespace Bank
             {
                 EmailAddress = emailAddress,
                 AccountType = accountType,
-
-
-
             };
             if (amount > 0)
             {
@@ -31,5 +29,24 @@ namespace Bank
             return AllAccounts;
         }
 
+        public static void Deposit(int accountnumber,decimal amount)
+        {
+           var account= AllAccounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
+            if (account == null)
+            {
+                return;
+            }
+            account.Deposit(amount);
+        }
+
+        public static void Withdrawl(int accountnumber, decimal amount)
+        {
+            var account = AllAccounts.SingleOrDefault(a => a.AccountNumber == accountnumber);
+            if (account == null)
+            {
+                return;
+            }
+            account.Withdrawl(amount);
+        }
     }
 }

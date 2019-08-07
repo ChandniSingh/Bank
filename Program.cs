@@ -53,7 +53,7 @@ namespace Bank
                         var initialAmount = Convert.ToInt32(Console.ReadLine());
 
                         var account = Bank.CreateAccount(emailaddress, accountType, initialAmount);
-                        Console.WriteLine($"{account.EmailAddress} , {account.AccountType} , {account.Balance:C}");
+                        Console.WriteLine($"{account.AccountNumber}, {account.EmailAddress} , {account.AccountType} , {account.Balance:C} , {account.CreatedDate}");
                         break;
 
                     case "3":
@@ -61,6 +61,17 @@ namespace Bank
                         var accountNum = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the amount to deposit");
                         var amount = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Deposit(accountNum, amount);
+                        
+                        break;
+
+                    case "4":
+                        Console.WriteLine("Enter account number");
+                        var accountNum1= Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the amount to deposit");
+                        var amount1 = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Withdrawl(accountNum1, amount1);
+
                         break;
 
                     case "5":
@@ -69,6 +80,7 @@ namespace Bank
                         foreach (var item in accounts)
                         {
                             Console.WriteLine(item.EmailAddress);
+                            Console.WriteLine($"{item.AccountNumber}, {item.EmailAddress} , {item.AccountType} , {item.Balance:C} , {item.CreatedDate}");
                         }
 
 
