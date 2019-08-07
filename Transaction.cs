@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Bank
 {
-
-    enum TransactionType
+    public enum TransactionType
     {
         Credit,
         Debit
     }
-    class Transaction
+   public class Transaction
     {
         
         public int TransactionId { get; set; }

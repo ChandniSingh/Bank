@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Bank
 {
-   static class Bank
+  public static class Bank
     {
         // private static List<Account> AllAccounts = new List<Account>();
         private static BankModel db = new BankModel();
@@ -28,10 +28,10 @@ namespace Bank
 
         }
 
-       public static IEnumerable<Account> GetAllAccounts()
+       public static IEnumerable<Account> GetAllAccounts(string emailaddress)
         {
             // return AllAccounts;
-          return  db.Accounts;
+          return  db.Accounts.Where(a=>a.EmailAddress==emailaddress);
         }
 
         public static void Deposit(int accountnumber,decimal amount)

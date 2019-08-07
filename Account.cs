@@ -11,7 +11,7 @@ namespace Bank
         CD,
         Loan
     }
-    class Account
+   public class Account
     {
       
 
